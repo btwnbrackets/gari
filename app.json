@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "gari",
+    "slug": "gari",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/playstore.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "supportsTablet": true,
+      "package": "com.github.btwnbrackets.gari",
+      "backgroundColor": "#81A1C1"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/playstore.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#81A1C1"
+        }
+      ],
+      "expo-sqlite"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "79928a47-1bbb-491f-b714-4c3a41b254ad"
+      }
+    }
+  }
+}
