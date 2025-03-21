@@ -1,11 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
-import { Dictionary, JMdictWord } from "@/db/models";
-import { furigana } from "@/src/utils/furi";
-import RubyText from "../common/RubyText";
+import { Dictionary } from "@/db/models";
 import SenseList from "./SenseList";
 import OtherForms from "./OtherForms";
 import { commonStyles } from "@/style/commonStyles";
 import { useTheme } from "@/style/ThemeProvider";
+import { RubyBlock, furigana } from "@btwnbrackets/react-native-furi";
 
 type Props = {
   entry: Dictionary;
@@ -37,7 +36,7 @@ export default function PopUpDictionaryEntry({ entry, isLast }: Props) {
             furigana(entry.data.kanji[0].text, entry.data.kana[0].text).map(
               (part, i) => {
                 return (
-                  <RubyText
+                  <RubyBlock
                     key={i}
                     base={part.token}
                     furigana={part.reading}

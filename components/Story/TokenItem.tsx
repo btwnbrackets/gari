@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleProp,
-  StyleSheet,
   Text,
   TextStyle,
   ViewStyle,
 } from "react-native";
 import { Token } from "@/db/models";
-import { furigana } from "@/src/utils/furi";
-import RubyText from "../common/RubyText";
 import { commonStyles } from "@/style/commonStyles";
 import { useTheme } from "@/style/ThemeProvider";
+import { RubyBlock, furigana } from "@btwnbrackets/react-native-furi";
 
 type Props = {
   token: Token;
@@ -49,7 +47,7 @@ export default function TokenItem({
       {parts.map((part, i) => {
         // console.log(part)
         return (
-          <RubyText
+          <RubyBlock
             key={i}
             base={part.token}
             furigana={part.reading}
