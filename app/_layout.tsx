@@ -63,9 +63,10 @@ function App() {
         screenOptions={{
           headerStyle: { backgroundColor: theme.surface },
           headerTintColor: theme.text,
+          headerTitleAlign: "left"
         }}
       >
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ title: "Main", headerShown: false }} />
         <Stack.Screen name="processing" options={{ title: "Processing" }} />
         <Stack.Screen name="upload" options={{ title: "Uploading" }} />
         <Stack.Screen name="story/[id]" options={{ title: "Story Details" }} />

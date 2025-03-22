@@ -9,6 +9,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerStyle: { backgroundColor: theme.surface },
+        headerTitleAlign: "left",
         headerTintColor: theme.text,
         tabBarStyle: {
           backgroundColor: theme.surface,
