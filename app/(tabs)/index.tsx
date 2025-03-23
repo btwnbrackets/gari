@@ -8,6 +8,7 @@ import SortModal from "@/components/common/SortBottomSlider";
 import EmptyScreenMessage from "@/components/common/EmptyScreenMessage";
 import ScreenWrapper from "@/components/common/ScreenWrapper";
 import { commonStyles } from "@/style/commonStyles";
+import { Alert } from "react-native";
 
 export default function IndexScreen() {
   const router = useRouter();
@@ -26,7 +27,6 @@ export default function IndexScreen() {
     confirmDeleteAll,
     search,
     isSort: true,
-    isInfo: true,
     add: () => router.push("/upload")
   });
 
@@ -34,7 +34,9 @@ export default function IndexScreen() {
     <ScreenWrapper style={commonStyles.scrollContainer}>
       <VerticalStories
         stories={stories}
-        onEdit={() => {}}
+        onEdit={() => {
+          Alert.alert("Sorry!", "This feature is not implemented yet")
+        }}
         onDelete={confirmDeleteStory}
       />
       <SortModal

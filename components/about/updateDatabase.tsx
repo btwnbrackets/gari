@@ -11,18 +11,18 @@ export default function DatabaseUpdate({ confirmUpdateDictionary }: Props) {
   const { theme } = useTheme();
 
   return (
-    <View style={commonStyles.gapM}>
+    <View style={[commonStyles.marginLV, commonStyles.gapM]}>
       <Text
         style={[
           commonStyles.textMedium,
-          { color: theme.text, textAlign: "center", lineHeight: 30 },
+          { color: theme.text, textAlign: "center", lineHeight: 20 },
         ]}
       >
-        To update dictionary data, press the button below.
+        If the dictionary is not working properly, update the dictionary locally by pressing the button below (no internet access is required)
       </Text>
       <BasicButton
         onPress={confirmUpdateDictionary}
-        title="update dictionary!"
+        title="Update Dictionary"
       />
     </View>
   );

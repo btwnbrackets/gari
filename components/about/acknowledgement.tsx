@@ -25,8 +25,11 @@ export default function Acknowledgement() {
   return (
     <Text
       style={[
+        commonStyles.marginLV,
+        commonStyles.padLV,
         commonStyles.textMedium,
-        { color: theme.text, textAlign: "center", lineHeight: 30 },
+        
+        { color: theme.text, textAlign: "center", lineHeight: 20, borderBottomColor: theme.lightGray, borderBottomWidth: 1 },
       ]}
     >
       This is an open source project available at
