@@ -3,6 +3,7 @@
 
 # Welcome to Gari!
 
+![Screenshots from the app](screenshots/demo.jpg)
 Gari is an offline, open-source Japanese reading and shadowing app. Current features:
 
 * audio player: play, repeat, repeat all, play all, forward, backward
