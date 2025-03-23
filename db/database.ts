@@ -26,13 +26,19 @@ const setDatabaseVersion = async (version: number) => {
 
 export const updateDictionary = async () => {
   try {
+    console.log("inside updateDictionary");
     const asset = Asset.fromModule(require(`../assets/db/${DB_NAME}`));
+    console.log("updateDictionary: asset");
     await asset.downloadAsync();
+    console.log("updateDictionary: await asset downloadAsync");
     await FileSystem.copyAsync({ from: asset.localUri!, to: TEMP_DB_PATH });
+    console.log("updateDictionary: await FileSystem copyAsync");
 
     await db.execAsync(
       `ATTACH DATABASE '${TEMP_DB_PATH.replace("file://", "")}' AS new_db;`
     );
+    console.log("updateDictionary: attached");
+
     await db.execAsync("DELETE FROM DictionaryIndex;");
     await db.execAsync("DELETE FROM Dictionary;");
     await db.execAsync("DELETE FROM DictionaryMeta;");
@@ -45,6 +51,8 @@ export const updateDictionary = async () => {
     await db.execAsync(
       "INSERT INTO DictionaryIndex SELECT * FROM new_db.DictionaryIndex;"
     );
+    console.log("updateDictionary: queries done");
+
     await db.execAsync("DETACH DATABASE new_db;");
 
     console.log("Dictionary updated successfully!");
@@ -77,8 +85,10 @@ const applyMigrations = async () => {
 };
 
 export const setupDatabase = async (): Promise<SQLiteDatabase> => {
+  console.log("setupDatabase");
   try {
     db = await openDatabaseAsync(DB_PATH);
+    console.log("open db");
 
     await db.execAsync("PRAGMA foreign_keys = ON;");
 
@@ -173,8 +183,9 @@ export const setupDatabase = async (): Promise<SQLiteDatabase> => {
         FOREIGN KEY(tagId) REFERENCES Tag(id)
       );`
     );
+    console.log("created tables");
 
-    await applyMigrations();
+    // await applyMigrations();
     const currentVersion = await getDatabaseVersion();
 
     console.log("Database setup complete. Version", currentVersion);

@@ -18,15 +18,20 @@ configureReanimatedLogger({
 });
 
 export default function Layout() {
+  console.log("starting...");
+
   const [dbInitialized, setDbInitialized] = useState(false);
   const [fontsLoaded] = useFonts({
     NotoSerifJP: require("../assets/fonts/NotoSerifJP-VariableFont_wght.ttf"),
   });
+  console.log("font...");
 
   useEffect(() => {
     const initDb = async () => {
       try {
+        console.log("db...");
         await setupDatabase();
+        console.log("db done");
         setDbInitialized(true);
       } catch (error) {
         console.error("Database initialization error:", error);

@@ -7,6 +7,7 @@
     "icon": "./assets/images/playstore.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["assets/**/*"],
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
