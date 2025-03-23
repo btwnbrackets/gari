@@ -65,7 +65,7 @@ export default function queryUpdateDictionary() {
 
       console.log(data)
 
-      const latestVersion = data.tag_name?.replace(/^v/, "") ?? "0.0.0"; // Assuming tags are like v1.2.3
+      const latestVersion = data.tag_name?.replace(/^v/, "") ?? "0.0.0";
       const releaseUrl = data.html_url;
 
       if (isNewerVersion(latestVersion, currentVersion)) {
