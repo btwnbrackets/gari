@@ -185,7 +185,7 @@ export const setupDatabase = async (): Promise<SQLiteDatabase> => {
     );
     console.log("created tables");
 
-    // await applyMigrations();
+    await applyMigrations();
     const currentVersion = await getDatabaseVersion();
 
     console.log("Database setup complete. Version", currentVersion);
