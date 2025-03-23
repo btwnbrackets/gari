@@ -2,6 +2,7 @@ import { getDateLabel } from "@/src/utils/dates";
 import { db, updateDictionary } from "./database";
 import {
   Dictionary,
+  DictionaryMetaData,
   GroupedByHistory,
   GroupedLookedup,
   JMdictWord,
@@ -13,12 +14,8 @@ import {
   Token,
 } from "./models";
 
-export const getDictionaryMetaData = async (): Promise<{ key: string; value: string }[]> => {
-  let res = await db.getAllAsync("SELECT * FROM DictionaryMeta") as {
-    key: string;
-    value: string;
-  }[];
-  return res && res;
+export const getDictionaryMetaData = async (): Promise<DictionaryMetaData[]> => {
+  return await db.getAllAsync("SELECT * FROM DictionaryMeta") as DictionaryMetaData[];
 };
 
 export const updateDictionaryData = async (): Promise<string | undefined> => {

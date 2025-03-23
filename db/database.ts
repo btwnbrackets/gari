@@ -2,6 +2,7 @@ import { openDatabaseAsync, type SQLiteDatabase } from "expo-sqlite";
 import * as FileSystem from "expo-file-system";
 import { Asset } from "expo-asset";
 import { migrations } from "./migrations";
+import { DictionaryMetaData } from "./models";
 
 const DB_NAME = "gari.db";
 const DB_PATH = FileSystem.documentDirectory + DB_NAME;
@@ -12,7 +13,7 @@ let db: SQLiteDatabase;
 const getDatabaseVersion = async (): Promise<number> => {
   const result = (await db.getFirstSync(
     'SELECT value FROM Version WHERE key = "schema_version";'
-  )) as { key: string; value: string };
+  )) as DictionaryMetaData;
   return result ? parseFloat(result.value) : 1;
 };
 
@@ -85,7 +86,7 @@ export const setupDatabase = async (): Promise<SQLiteDatabase> => {
       "CREATE TABLE IF NOT EXISTS Version (key TEXT PRIMARY KEY, value TEXT);"
     );
     await db.execAsync(
-      'INSERT OR IGNORE INTO Version (key, value) VALUES ("schema_version", "1");'
+      'INSERT OR IGNORE INTO Version (key, value) VALUES ("schema_version", ".9");'
     );
 
     await db.execAsync(

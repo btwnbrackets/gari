@@ -11,7 +11,6 @@ type Props = {
   search?: (word: string) => void;
   isFurigana?: boolean;
   isSort?: boolean;
-  isInfo?: boolean;
 };
 
 export default function header({
@@ -21,7 +20,6 @@ export default function header({
   searchFavorite,
   isSort,
   isFurigana,
-  isInfo
 }: Props) {
   const navigation = useNavigation();
   const router = useRouter();
@@ -78,9 +76,6 @@ export default function header({
       add: add? add: undefined,
       theme: theme, 
       toggleTheme:toggleTheme,
-      toInfo: isInfo? () => {
-        router.push("/acknowledgement");
-      } : undefined,
     });
 
   useEffect(() => {

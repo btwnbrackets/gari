@@ -7,7 +7,7 @@ export const migrations: {
 }[] = [];
 
 migrations.push({
-  version: 1.1,
+  version: 1,
   isUdateDictionary: true,
   script: async (db: SQLiteDatabase) => {}
 })

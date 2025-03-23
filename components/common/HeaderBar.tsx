@@ -18,7 +18,6 @@ type Props = {
   add?: () => void;
   theme: ThemeType;
   toggleTheme: () => void;
-  toInfo?: () => void;
 };
 
 export default function HeaderBar({
@@ -35,7 +34,6 @@ export default function HeaderBar({
   add,
   toggleTheme,
   theme,
-  toInfo,
 }: Props) {
   const showSearchBar = toggleSearch && setSearchWord && showSearch;
   return (
@@ -106,14 +104,6 @@ export default function HeaderBar({
               style={styles.iconStyles}
             />
           )}
-          {toInfo && (
-            <TapIcon
-              iconName={"information"}
-              onTap={toInfo}
-              style={styles.iconStyles}
-            />
-          )}
-
           <TapIcon
             iconName={
               theme.mode === "dark"

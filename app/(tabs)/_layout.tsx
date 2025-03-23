@@ -14,11 +14,20 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: theme.surface,
           borderColor: "transparent",
-        }, 
+        },
         tabBarActiveTintColor: theme.primary,
         tabBarInactiveTintColor: theme.gray,
       }}
     >
+      <Tabs.Screen
+        name="about"
+        options={{
+          title: "About",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons size={28} name="information" color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="index"
         options={{

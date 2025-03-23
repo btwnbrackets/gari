@@ -14,7 +14,6 @@ export interface SentenceRaw {
   isFavorite: number;
 }
 
-
 export interface Sentence {
   id: number;
   content: string;
@@ -40,7 +39,6 @@ export interface GroupedByHistory {
   [key: string]: Story[];
 }
 
-
 export interface LookedupWord {
   basicForm: string;
   isFavorite: boolean;
@@ -59,7 +57,7 @@ export interface Dictionary {
   id: number;
   data: JMdictWord;
   jlpt: number;
-  isCommon: number
+  isCommon: number;
 }
 
 export interface DictionaryIndex {
@@ -76,7 +74,7 @@ export interface LookedupJoin {
   wordPosition: number;
   tokenModifiedDate: string;
   sentenceId: number;
-  tokens: string,
+  tokens: string;
 
   dicId: number;
   data: string;
@@ -103,6 +101,11 @@ export interface GroupedLookedup {
 export interface Tag {
   name: string;
   id: number;
+}
+
+export interface DictionaryMetaData {
+  key: string;
+  value: string;
 }
 
 export interface KUROMOJI_TOKEN {
