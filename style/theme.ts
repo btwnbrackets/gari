@@ -78,6 +78,7 @@ export const spacing = {
   small: 8,
   medium: 16,
   large: 24,
+  xlarge: 36,
 };
 
 export const radius = {

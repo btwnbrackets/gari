@@ -8,6 +8,7 @@ Gari is an offline, open-source Japanese reading and shadowing app. Current feat
 * audio player: play, repeat, repeat all, play all, forward, backward
 * offline dictionary lookup
 * automatic furigana generator
+* dark and light themes
 
 You can search, sort, delete your collection, as well as put sentences and lookups into favorites.
 
@@ -24,9 +25,10 @@ You are more than welcome to fork and contribute to this project :) `TODO.md` co
 
 The dictionary data are first made using the python script available at `/script`. Once created, move the files to `/assets/db`.
 
-If you want to update the dictionary data (e.g. newwer release) or modify the database, create a migration push in `/db/migrations.ts` as such:
 
 ### Database and Dictionary Updates 
+
+If you want to update the dictionary data (e.g. newwer release) or modify the database, create a migration push in `/db/migrations.ts` as such:
 
 ```ts
 migrations.push({
@@ -53,7 +55,7 @@ All database types are defined in `db/models.ts`. If you modify the database tab
 
 ### Tokenization
 
-Tokenization is done using [my fork](https://github.com/btwnbrackets/react-native-kuromoji) of [CharlesCoeder/react-native-kuromoji] available at `src/kuromoji`. This folder will most likely be removed soon and replaced with an installed library. The tokenization singleton code is at `db\TokenizerSingleton.ts`.
+Tokenization is done using [my fork](https://github.com/btwnbrackets/react-native-kuromoji) of [CharlesCoeder/react-native-kuromoji](https://github.com/CharlesCoeder/react-native-kuromoji) available at `src/kuromoji`. This folder will most likely be removed soon and replaced with an installed library. The tokenization singleton code is at `db\TokenizerSingleton.ts`.
 
 
 ### Screens

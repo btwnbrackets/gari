@@ -1,5 +1,5 @@
 import { getDateLabel } from "@/src/utils/dates";
-import { db } from "./database";
+import { db, updateDictionary } from "./database";
 import {
   Dictionary,
   GroupedByHistory,
@@ -12,6 +12,23 @@ import {
   StoryDetails,
   Token,
 } from "./models";
+
+export const getDictionaryMetaData = async (): Promise<{ key: string; value: string }[]> => {
+  let res = await db.getAllAsync("SELECT * FROM DictionaryMeta") as {
+    key: string;
+    value: string;
+  }[];
+  return res && res;
+};
+
+export const updateDictionaryData = async (): Promise<string | undefined> => {
+  await updateDictionary();
+
+  let res = (await db.getFirstSync(
+    'SELECT * FROM DictionaryMeta WHERE key = "version";'
+  )) as { key: string; value: string };
+  return res && res.value;
+};
 
 export const addStory = async (
   name: string,
@@ -194,7 +211,9 @@ export const getAllLookups = async (
     ${showFavorite && searchWord != "" ? " AND " : ""}
     ${!showFavorite && searchWord != "" ? " WHERE " : ""}
     ${searchWord != "" ? "lwt.basicForm LIKE '%" + searchWord + "%'" : ""}
-    ORDER BY lw.${column} ${asc ? "ASC" : "DESC"}, lwt.modifiedDate DESC,  d.isCommon DESC, d.jlpt DESC, di.dicId DESC;
+    ORDER BY lw.${column} ${
+    asc ? "ASC" : "DESC"
+  }, lwt.modifiedDate DESC,  d.isCommon DESC, d.jlpt DESC, di.dicId DESC;
   `)) as LookedupJoin[];
 
   const groupedMap = new Map<string, GroupedLookedup>();
@@ -229,16 +248,14 @@ export const getAllLookups = async (
       group.tokenSentences.push(sentenceEntry);
     }
 
-    let dictionaryEntry = group.dictionary.find(
-      (s) => s.id === item.dicId
-    );
+    let dictionaryEntry = group.dictionary.find((s) => s.id === item.dicId);
 
     if (!dictionaryEntry) {
-        dictionaryEntry = {
+      dictionaryEntry = {
         id: item.dicId,
         jlpt: item.jlpt,
         data: (item.data && JSON.parse(item.data)) as JMdictWord,
-        isCommon: item.isCommon
+        isCommon: item.isCommon,
       };
       group.dictionary.push(dictionaryEntry);
     }
@@ -302,7 +319,12 @@ export const lookupWord = async (basicForm: string): Promise<Dictionary[]> => {
     const entries: Dictionary[] = lookups
       .map((lookup) => {
         try {
-          const entry = lookup as { id: Number; data: string, jlpt: number, isCommon: number };
+          const entry = lookup as {
+            id: Number;
+            data: string;
+            jlpt: number;
+            isCommon: number;
+          };
           return {
             ...entry,
             data: JSON.parse(entry.data) as JMdictWord,

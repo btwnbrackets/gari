@@ -40,6 +40,9 @@ export const commonStyles = StyleSheet.create({
   gapL: {
     gap: spacing.large,
   },
+  gapXl: {
+    gap: spacing.xlarge,
+  },
 
   // margin
   marginLV: {

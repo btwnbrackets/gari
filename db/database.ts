@@ -23,7 +23,7 @@ const setDatabaseVersion = async (version: number) => {
   );
 };
 
-const updateDictionary = async () => {
+export const updateDictionary = async () => {
   try {
     const asset = Asset.fromModule(require(`../assets/db/${DB_NAME}`));
     await asset.downloadAsync();
@@ -45,6 +45,7 @@ const updateDictionary = async () => {
       "INSERT INTO DictionaryIndex SELECT * FROM new_db.DictionaryIndex;"
     );
     await db.execAsync("DETACH DATABASE new_db;");
+
     console.log("Dictionary updated successfully!");
   } catch (error) {
     console.error("Error updating dictionary:", error);
@@ -88,81 +89,88 @@ export const setupDatabase = async (): Promise<SQLiteDatabase> => {
     );
 
     await db.execAsync(
+      `CREATE TABLE IF NOT EXISTS DictionaryMeta (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      );`
+    );
+
+    await db.execAsync(
       `CREATE TABLE IF NOT EXISTS Story (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      creationDate TEXT NOT NULL,
-      readDate TEXT
-    );`
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        creationDate TEXT NOT NULL,
+        readDate TEXT
+      );`
     );
 
     await db.execAsync(
       `CREATE TABLE IF NOT EXISTS Sentence (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      content TEXT NOT NULL,
-      audioUri TEXT NOT NULL,
-      storyId INTEGER NOT NULL,
-      tokens TEXT,
-      isFavorite INTEGER DEFAULT 0,
-      FOREIGN KEY(storyId) REFERENCES Story(id) ON DELETE CASCADE
-    );`
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        content TEXT NOT NULL,
+        audioUri TEXT NOT NULL,
+        storyId INTEGER NOT NULL,
+        tokens TEXT,
+        isFavorite INTEGER DEFAULT 0,
+        FOREIGN KEY(storyId) REFERENCES Story(id) ON DELETE CASCADE
+      );`
     );
 
     await db.execAsync(
       `CREATE TABLE IF NOT EXISTS Dictionary (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      data TEXT,
-      jlpt INTEGER DEFAULT 0,
-      isCommon INTEGER DEFAULT 0
-    );`
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        data TEXT,
+        jlpt INTEGER DEFAULT 0,
+        isCommon INTEGER DEFAULT 0
+      );`
     );
 
     await db.execAsync(
       `CREATE TABLE IF NOT EXISTS DictionaryIndex (
-      word TEXT,
-      dicId INTEGER,
-      
-      PRIMARY KEY(word, dicId),
-      FOREIGN KEY(dicId) REFERENCES Dictionary(id) ON DELETE CASCADE
-    );`
+        word TEXT,
+        dicId INTEGER,
+        
+        PRIMARY KEY(word, dicId),
+        FOREIGN KEY(dicId) REFERENCES Dictionary(id) ON DELETE CASCADE
+      );`
     );
 
     await db.execAsync(
       `CREATE TABLE IF NOT EXISTS LookedupWord (
-      basicForm TEXT PRIMARY KEY,
-      modifiedDate TEXT NOT NULL,
-      isFavorite INTEGER DEFAULT 0,
-      count INTEGER DEFAULT 0
-    );`
+        basicForm TEXT PRIMARY KEY,
+        modifiedDate TEXT NOT NULL,
+        isFavorite INTEGER DEFAULT 0,
+        count INTEGER DEFAULT 0
+      );`
     );
 
     await db.execAsync(
       `CREATE TABLE IF NOT EXISTS LookedupWordTokens (
-      basicForm TEXT PRIMARY KEY,
-      wordPosition INTEGER,
-      sentenceId INTEGER,
-      modifiedDate TEXT NOT NULL,
-      
-      FOREIGN KEY(basicForm) REFERENCES LookedupWord(basicForm) ON DELETE CASCADE
-      FOREIGN KEY(sentenceId) REFERENCES Sentence(id) ON DELETE CASCADE
-    );`
+        basicForm TEXT PRIMARY KEY,
+        wordPosition INTEGER,
+        sentenceId INTEGER,
+        modifiedDate TEXT NOT NULL,
+        
+        FOREIGN KEY(basicForm) REFERENCES LookedupWord(basicForm) ON DELETE CASCADE
+        FOREIGN KEY(sentenceId) REFERENCES Sentence(id) ON DELETE CASCADE
+      );`
     );
 
     await db.execAsync(
       `CREATE TABLE IF NOT EXISTS Tag (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT UNIQUE NOT NULL
-    );`
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE NOT NULL
+      );`
     );
 
     await db.execAsync(
       `CREATE TABLE IF NOT EXISTS StoryTag (
-      storyId INTEGER NOT NULL,
-      tagId INTEGER NOT NULL,
-      PRIMARY KEY(storyId, tagId),
-      FOREIGN KEY(storyId) REFERENCES Story(id),
-      FOREIGN KEY(tagId) REFERENCES Tag(id)
-    );`
+        storyId INTEGER NOT NULL,
+        tagId INTEGER NOT NULL,
+        PRIMARY KEY(storyId, tagId),
+        FOREIGN KEY(storyId) REFERENCES Story(id),
+        FOREIGN KEY(tagId) REFERENCES Tag(id)
+      );`
     );
 
     await applyMigrations();
