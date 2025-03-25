@@ -92,6 +92,7 @@ export default function UploadScreen() {
 
       {textFile && (
         <TextInput
+          placeholderTextColor={theme.text + "99"}
           value={filename}
           onChange={(event) => setFilename(event.nativeEvent.text)}
           placeholder="story name"

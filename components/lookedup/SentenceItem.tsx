@@ -1,6 +1,5 @@
 import TokenItem from "@/components/Story/TokenItem";
 import { Token } from "@/db/models";
-import { commonStyles } from "@/style/commonStyles";
 import { useTheme } from "@/style/ThemeProvider";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, StyleSheet } from "react-native";
@@ -30,7 +29,7 @@ export default function SentenceItem({ sentence, showFurigana }: Props) {
             key={token.wordPosition}
             token={token}
             entryContainer={styles.entryContainer}
-            furiganaStyle={{ color: theme.primary }}
+            // furiganaStyle={{ color: theme.primary }}
             style={[
               token.wordPosition == sentence.wordPosition
                 ? { color: theme.primary, fontWeight: "bold" }

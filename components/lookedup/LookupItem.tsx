@@ -3,9 +3,8 @@ import PopUpDictionaryEntry from "@/components/PopUpDictionary/PopUpDictionaryEn
 import { GroupedLookedup } from "@/db/models";
 import { View, Text, StyleSheet, LayoutChangeEvent } from "react-native";
 import SentenceItem from "./SentenceItem";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Reanimated, {
-  SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withTiming,

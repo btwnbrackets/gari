@@ -40,6 +40,7 @@ export default function HeaderBar({
     <View style={styles.container}>
       {showSearchBar ? (
         <TextInput
+          placeholderTextColor={theme.text + "99"}
           autoFocus={true}
           style={[
             commonStyles.inputText,
