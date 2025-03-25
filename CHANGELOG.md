@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.2.1] - 2025-03-23
-### Added
+## [1.2.1] - 2025-03-25
+
 - fixed bugs
 
 
