@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.2] - 2026-05-03
+
+- fixed audio player bug
+
+
 ## [1.2.1] - 2025-03-25
 
 - fixed bugs

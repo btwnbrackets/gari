@@ -7,7 +7,7 @@ import Animated from "react-native-reanimated";
 import { GestureDetector } from "react-native-gesture-handler";
 import PopUpDictionaryLookup from "@/components/PopUpDictionary/PopUpDictionaryLookup";
 
-import audioControl from "@/hooks/story/audioControl";
+import useAudioControl from "@/hooks/story/audioControl";
 import querySentence from "@/hooks/story/querySentence";
 import lookup from "@/hooks/story/lookup";
 import { Sentence } from "@/db/models";
@@ -26,7 +26,11 @@ export default function SentencesWithAudioController({
 }: Props) {
   const flatListRef = useRef<FlatList>(null);
   const scrollToItem = (index: number) => {
-    flatListRef.current?.scrollToIndex({ index, animated: true });
+    try {
+      flatListRef.current?.scrollToIndex({ index, animated: true });
+    } catch {
+      flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+    }
   };
   const { toggleIsFavorite } = querySentence({ updateData });
   const {
@@ -37,7 +41,7 @@ export default function SentencesWithAudioController({
     toggleRepeat,
     playSentence,
     playAll,
-  } = audioControl({ sentences: sentences, scrollToItem });
+  } = useAudioControl({ sentences: sentences, scrollToItem });
 
   const { lookupWord, slideDown, onLookup, onTapWord, containerStyle } =
     lookup();
